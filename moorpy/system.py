@@ -136,7 +136,7 @@ class System():
             if Fortran:
                 self.loadData(dirname, rootname, sep='.MD')
             else:
-                self.loadData(dirname, rootname, sep='.')
+                self.loadData(dirname, rootname, sep='')
             
             if len(file)==0 or len(rootname)==0:
                 raise ValueError("The MoorDyn input file name and the root name of the MoorDyn output files (e.g. the .fst file name without extension) need to be given.")
@@ -850,7 +850,7 @@ class System():
                         nSegs  = int(entries[5])         
                         
                         #lineList.append( Line(dirName, num, lUnstr, dia, nSegs) )
-                        self.lineList.append( Line(self, num, lUnstr, lineType, nSegs=nSegs, attachments = [int(entries[2]), int(entries[3])]) )
+                        self.lineList.append( Line(self, num, lUnstr, lineType, nSegs=nSegs, attachments = [entries[2], entries[3]]) )
                         
                         # attach end A
                         numA = int("".join(filter(str.isdigit, entries[2])))  # get number from the attachA string
@@ -3535,9 +3535,9 @@ class System():
         '''
         
         # Temporarily storing all data in main output file in system.data ..... probably will want to change this at some point
-        if path.exists(dirname+rootname+sep+'out'):
+        if path.exists(dirname+rootname+sep+'.out'):
         
-            self.data, self.ch, self.channels, self.units = read_mooring_file(dirname+rootname+sep, "out") # remember number starts on 1 rather than 0
+            self.data, self.ch, self.channels, self.units = read_mooring_file(dirname+rootname+sep, ".out") # remember number starts on 1 rather than 0
         
              
     def plot(self, ax=None, bounds='default', rbound=0, color=None, **kwargs):
