@@ -2079,7 +2079,11 @@ def read_mooring_file(dirName,fileName):
     # use a dictionary for convenient access of channel columns (eg. data[t][ch['PtfmPitch'] )
     ch = dict(zip(channels, range(len(channels))))
     
-    data2 = np.array(data)
+    try:
+        data2 = np.array(data)
+    except:
+        print('Error converting outfile data to numpy array. Check header in '+dirName+fileName)
+        raise
     
     # Check if *** characters in data2 and if so replace with 0
     for i in range(len(data2)):
